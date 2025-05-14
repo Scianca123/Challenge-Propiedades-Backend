@@ -4,19 +4,16 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './modules/user/user.module';
 import { BuildingModule } from './modules/building/building.module';
+import { ConfigModule } from '@nestjs/config';
+import ormConfig from './config/ormConfig';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'db', // Este nombre va a coincidir con el servicio de docker-compose
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'nest_db',
-      autoLoadEntities: true,
-      synchronize: true, // Solo para desarrollo. Crea las tablas automáticamente.
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: `.env.${process.env.NODE_ENV || 'development'}`,
     }),
+    TypeOrmModule.forRoot(ormConfig),
     UserModule,
     BuildingModule,
   ],
