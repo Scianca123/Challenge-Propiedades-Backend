@@ -9,6 +9,6 @@ export class BuildingController {
   @Get()
   async getFilteredBuildings(@Query() filters: FilterBuildingDto) {
     const buildings = await this.buildingService.getFilteredBuildings(filters);
-    return { buildings };
+    return buildings;
   }
 }
