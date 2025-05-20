@@ -23,7 +23,7 @@ export class Building {
   @Column('float')
   price: number;
 
-  @Column()
+  @Column({ nullable: true })
   urlImg: string; // URL completa de la imagen subida a Cloudinary
 
   @Column({

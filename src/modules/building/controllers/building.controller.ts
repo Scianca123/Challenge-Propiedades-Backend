@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Controller, Get, Query } from '@nestjs/common';
 import { FilterBuildingDto } from '../dtos/filter-building.dto';
 import { BuildingService } from '../services/building.service';

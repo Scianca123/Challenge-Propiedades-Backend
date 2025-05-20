@@ -19,6 +19,11 @@ export class UserService {
     if (!user) {
       user = this.userRepository.create(dto);
       await this.userRepository.save(user);
+    } else {
+      if (dto.urlPhoto && user.urlPhoto !== dto.urlPhoto) {
+        user.urlPhoto = dto.urlPhoto;
+        await this.userRepository.save(user);
+      }
     }
 
     return user;

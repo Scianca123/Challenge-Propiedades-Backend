@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateUserDto {
@@ -11,5 +10,5 @@ export class CreateUserDto {
 
   @IsOptional()
   @IsString()
-  urlGooglePhoto?: string;
+  urlPhoto?: string;
 }
