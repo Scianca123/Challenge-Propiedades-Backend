@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { DataSourceOptions } from 'typeorm';
 import * as dotenv from 'dotenv';
 import { User } from 'src/modules/user/entitys/userEntity';
@@ -7,16 +9,23 @@ dotenv.config({
   path: `.env.${process.env.NODE_ENV || 'development'}`,
 });
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 const common: DataSourceOptions = {
   type: 'postgres',
   url: process.env.DATABASE_URL,
   entities: [User, Building],
   logging: true,
-  synchronize: process.env.NODE_ENV === 'development',
+  synchronize: !isProduction,
+  ssl: isProduction, // 👈 habilitamos SSL en producción
+  extra: isProduction ? {
+    ssl: {
+      rejectUnauthorized: false, // 👈 necesario para Render
+    },
+  } : undefined,
 };
 
 export default {
   ...common,
-  synchronize: process.env.NODE_ENV === 'development',
-  migrationsRun: process.env.NODE_ENV !== 'development',
+  migrationsRun: isProduction,
 } as DataSourceOptions;
