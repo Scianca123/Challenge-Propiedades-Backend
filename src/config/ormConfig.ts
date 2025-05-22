@@ -16,11 +16,11 @@ const common: DataSourceOptions = {
   url: process.env.DATABASE_URL,
   entities: [User, Building],
   logging: true,
-  synchronize: !isProduction,
-  ssl: isProduction, // 👈 habilitamos SSL en producción
+  synchronize: true,
+  ssl: isProduction, 
   extra: isProduction ? {
     ssl: {
-      rejectUnauthorized: false, // 👈 necesario para Render
+      rejectUnauthorized: false, 
     },
   } : undefined,
 };
